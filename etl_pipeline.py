@@ -1,5 +1,4 @@
 import pandas as pd
-import json
 from dotenv import load_dotenv
 import os
 from urllib.parse import quote_plus
@@ -16,8 +15,9 @@ warehouse = os.getenv("SNOWFLAKE_WAREHOUSE")
 
 # Extract & Transform
 df = pd.read_csv('details.csv')
+df.dropna()
 df['age'] = df['age'].astype(str)
-
+df = df[df['graduation'].between(0,100)]
 
 # Construct connection string
 connection_string = (
